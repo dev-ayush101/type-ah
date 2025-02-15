@@ -6,15 +6,17 @@ function SearchBox() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (query.trim() === "") {
-      setSuggestions([]);
-      return;
-    }
-
     const timer = setTimeout(async () => {
+      if (query.trim() === "") {
+        setSuggestions([]);
+        return;
+      }
+
       setLoading(true);
       try {
-        const res = await fetch(`/api/v1/suggest?prefix=${encodeURIComponent(query)}&limit=10`);
+        const res = await fetch(
+          `/api/v1/suggest?prefix=${encodeURIComponent(query)}&limit=10`
+        );
         const data = await res.json();
         setSuggestions(data);
       } catch (err) {
