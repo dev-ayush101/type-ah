@@ -1,0 +1,22 @@
+services:
+  backend:
+    build: ./backend
+    container_name: typeah-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - typeah-network
+
+  frontend:
+    build: ./frontend
+    container_name: typeah-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - typeah-network
+
+networks:
+  typeah-network:
+    driver: bridge
